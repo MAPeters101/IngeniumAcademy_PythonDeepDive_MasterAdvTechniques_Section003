@@ -38,16 +38,24 @@ def start_tcp_client():
     # Create a socket object
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+    #print("Client is connecting...")
     # Connect to the server on a specific address and port
     s.connect(('localhost', 443))
 
     for i in range(5):
-        # Send a message tothe server
+        # Send a message to the server
         s.send(f'Hello from client, message {i}'.encode())
 
         # Receive the server's response
         print(s.recv(1024).decode())
-        time.sleep()
+        time.sleep(1)
 
     s.close()
+
+if __name__ == "__main__":
+    server_process = multiprocessing.Process(target=start_tcp_server)
+    client_process = multiprocessing.Process(target=start_tcp_client)
+
+    server_process.start()
+    client_process.start()
 
