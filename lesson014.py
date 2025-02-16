@@ -31,4 +31,23 @@ def start_tcp_server():
     c.close()
 
 
+def start_tcp_client():
+    # Give server a moment to start
+    time.sleep(2)
+
+    # Create a socket object
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    # Connect to the server on a specific address and port
+    s.connect(('localhost', 443))
+
+    for i in range(5):
+        # Send a message tothe server
+        s.send(f'Hello from client, message {i}'.encode())
+
+        # Receive the server's response
+        print(s.recv(1024).decode())
+        time.sleep()
+
+    s.close()
 
