@@ -33,3 +33,19 @@ def start_udp_client():
         s.sendto(f'Hello from client, message {i}'.encode(), server_address)
 
         # Receive the server's response
+        response, _ = s.recvfrom(1024)
+        print(response.decode())
+        time.sleep()
+
+    # Close the connection (optional for UDP)
+    s.close()
+
+
+
+
+
+
+
+
+
+
