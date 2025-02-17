@@ -21,7 +21,7 @@ def start_udp_server():
 
 def start_udp_client():
     # Give server a moment to start
-    time.sleep()
+    time.sleep(2)
 
     # Create a socket object
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -35,13 +35,18 @@ def start_udp_client():
         # Receive the server's response
         response, _ = s.recvfrom(1024)
         print(response.decode())
-        time.sleep()
+        time.sleep(2)
 
     # Close the connection (optional for UDP)
     s.close()
 
 
+if __name__ == '__main__':
+    server_process = multiprocessing.Process(target=start_udp_server)
+    client_process = multiprocessing.Process(target=start_udp_client)
 
+    server_process.start()
+    client_process.start()
 
 
 
